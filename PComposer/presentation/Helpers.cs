@@ -22,41 +22,15 @@ namespace Presentation
 
         public static Menu GetMenuChoice(Menu currentMenu)
         {
-            while (true)
+            if (!MenuOptions.ContainsKey(currentMenu))
             {
-                if (!MenuOptions.ContainsKey(currentMenu))
-                {
-                    Console.WriteLine("Pritisnite bilo koju tipku za povratak u glavni izbornik");
-                    Console.ReadKey();
-                    return Menu.Main;
-                }
-
-                PrintMenuOptions(currentMenu);
-
-                Console.Write("Odaberite akciju: ");
-                bool success = Menu.TryParse(Console.ReadLine(), out Menu choice);
-
-                // bez ovog podmeniji nebi mogli raditi
-                // npr. ako smo u meniju 5 i odaberemo opciju 1
-                //      ovo ce pretvoriti choice u 51
-                if (currentMenu > Menu.Main && choice != Menu.Main)
-                {
-                    choice += (int)currentMenu * 10;
-                }
-
-                if (currentMenu == Menu.Main && choice == Menu.Main)
-                {
-                    return Menu.Exit;
-                }
-                
-                if (success && choice >= Menu.Main && (int)choice <= MenuOptions[currentMenu].Length)
-                {
-                    return choice;
-                }
-
-                Console.Clear();
-                Console.WriteLine("Odabir mora biti jedan od brojeva u listi.");
+                Console.WriteLine("Pritisnite bilo koju tipku za povratak u glavni izbornik");
+                Console.ReadKey();
+                return Menu.Main;
             }
+
+            PrintMenuOptions(currentMenu);
+            return GetUserInput(currentMenu);
         }
 
         private static void PrintMenuOptions(Menu currentMenu)
@@ -74,6 +48,34 @@ namespace Presentation
             else
             {
                 Console.WriteLine("0 - Povratak u glavni izbornik");
+            }
+        }
+        private static Menu GetUserInput(Menu currentMenu)
+        {
+            while (true)
+            {
+                Console.Write("Odaberite akciju: ");
+                bool success = Menu.TryParse(Console.ReadLine(), out Menu choice);
+
+                if (currentMenu == Menu.Main && choice == Menu.Main)
+                {
+                    return Menu.Exit;
+                }
+
+                if (success && choice >= Menu.Main && (int)choice <= MenuOptions[currentMenu].Length)
+                {
+                    // bez ovog podmeniji nebi mogli raditi
+                    // npr. ako smo u meniju 5 i odaberemo opciju 1
+                    //      ovo ce pretvoriti choice u 51
+                    if (currentMenu > Menu.Main && choice != Menu.Main)
+                    {
+                        choice += (int)currentMenu * 10;
+                    }
+
+                    return choice;
+                }
+
+                Console.WriteLine("Odabir mora biti jedan od brojeva u listi.");
             }
         }
     }
