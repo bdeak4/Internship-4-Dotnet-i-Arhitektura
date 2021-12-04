@@ -16,6 +16,12 @@ namespace Data.Entities
 
         }
 
-        public ComponentType GetComponentType() => ComponentType.Processor;
+        override public ComponentType GetComponentType() => ComponentType.Processor;
+
+        override public string ToRow()
+        {
+            var name = $"{Manufacturer} {NumOfCores} core processor";
+            return $"{name,-40} | {Price}";
+        }
     }
 }
