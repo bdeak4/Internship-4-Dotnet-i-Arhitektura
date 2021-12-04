@@ -1,18 +1,20 @@
 ﻿using System;
-using domain.entities;
+using Domain.Entities;
+using Presentation.Enums;
 
-namespace presentation
+namespace Presentation
 {
     class Program
     {
-        enum Menu
-        {
-            Main,
-            OrderPC,
-            PreviousOrders,
-        }
+        public static Menu CurrentMenu = Menu.Main;
 
         static void Main(string[] args)
+        {
+            AskForUserInfo();
+            ShowMenu();
+        }
+
+        static void AskForUserInfo()
         {
             Console.WriteLine("Dobro dosli, molimo unesite osobne podatke");
 
@@ -26,78 +28,29 @@ namespace presentation
             var address = Console.ReadLine();
 
             User.Set(name, surname, address);
+        }
 
-            var menu = 0;
-            var exit = false;
-            while (!exit)
+        static void ShowMenu()
+        {
+            while (true)
             {
                 Console.Clear();
-                switch ((Menu)menu)
+                
+                switch (CurrentMenu)
                 {
                     case Menu.Main:
-                        menu = Choice(new string[] {
-                            "Sastavi i naruči novo računalo",
-                            "Prikaži moje narudžbe",
-                        }, menu);
-
-                        if (menu == 0)
-                        {
-                            exit = true;
-                            Console.WriteLine("Izlaz iz aplikacije");
-                        }
                         break;
 
                     case Menu.OrderPC:
-                        menu = Choice(new string[] { }, menu);
+                        // ...
                         break;
 
-                    case Menu.PreviousOrders:
-                        menu = Choice(new string[] { }, menu);
-                        break;
+                    case Menu.Exit:
+                        return;
                 }
-            }
-        }
-         
 
-        static int Choice(string[] actions, int prev_choice)
-        {
-            if (actions.Length == 0)
-            {
-                Console.WriteLine("Pritisnite bilo koju tipku za povratak u glavni izbornik");
-                Console.ReadKey();
-                return (int)Menu.Main;
+                CurrentMenu = Helpers.GetMenuChoice(CurrentMenu);
             }
-
-            Console.WriteLine("Akcije:");
-            for (var i = 0; i < actions.Length; i++)
-            {
-                Console.WriteLine($"{i + 1} - {actions[i]}");
-            }
-
-            if (prev_choice == 0)
-            {
-                Console.WriteLine("0 - Odjavi se");
-            }
-            else
-            {
-                Console.WriteLine("0 - Povratak u glavni izbornik");
-            }
-
-            Console.Write("Odaberite akciju: ");
-            bool success = int.TryParse(Console.ReadLine(), out int choice);
-            while (choice < 0 || choice > actions.Length || !success)
-            {
-                Console.WriteLine("Odabir mora biti jedan od brojeva u listi.");
-                Console.Write("Odaberite akciju: ");
-                success = int.TryParse(Console.ReadLine(), out choice);
-            }
-
-            if (prev_choice > 0 && choice != 0)
-            {
-                choice += prev_choice * 10;
-            }
-
-            return choice;
         }
     }
 }
