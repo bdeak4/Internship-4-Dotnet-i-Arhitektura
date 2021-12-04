@@ -16,6 +16,12 @@ namespace Data.Entities
 
         }
 
-        public ComponentType GetComponentType() => ComponentType.Case;
+        override public ComponentType GetComponentType() => ComponentType.Case;
+
+        override public string ToRow()
+        {
+            var name = $"{Manufacturer} {Material} case ({WeightInKg}kg)";
+            return $"{name,-40} | {Price}";
+        }
     }
 }

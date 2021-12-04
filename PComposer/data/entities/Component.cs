@@ -14,5 +14,15 @@ namespace Data.Entities
 
         public Manufacturer GetManufacturer() => Manufacturer;
         public int GetPrice() => Price;
+
+        virtual public ComponentType GetComponentType()
+        {
+            throw new NotImplementedException();
+        }
+
+        virtual public string ToRow()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

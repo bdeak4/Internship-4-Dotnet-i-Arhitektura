@@ -12,6 +12,12 @@ namespace Data.Entities
 
         }
 
-        public ComponentType GetComponentType() => ComponentType.HardDrive;
+        override public ComponentType GetComponentType() => ComponentType.HardDrive;
+
+        override public string ToRow()
+        {
+            var name = $"{SizeInTB}TB {Manufacturer} hdd ({WeightInKg}kg)";
+            return $"{name,-40} | {Price}";
+        }
     }
 }
