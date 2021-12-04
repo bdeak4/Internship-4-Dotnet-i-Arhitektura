@@ -49,7 +49,7 @@ namespace Presentation
                         return;
                 }
 
-                CurrentMenu = Helpers.GetMenuChoice(CurrentMenu);
+                CurrentMenu = Helpers.GetMenuChoice();
             }
         }
     }
