@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Presentation.Enums;
 using Data.Entities;
 using Domain.Entities;
+using Data.Enums;
 
 namespace Presentation
 {
@@ -13,6 +14,12 @@ namespace Presentation
     {
         static public void Order()
         {
+            var computers = OrderChooseComponentsAndDelivery();
+        }
+
+        static public Computer[] OrderChooseComponentsAndDelivery()
+        {
+            var computers = new List<Computer> { };
             while (true)
             {
                 var components = ChooseComponents.Choose();
@@ -20,9 +27,12 @@ namespace Presentation
                 PrintDeliveryOptions(components);
                 var delivery = GetDeliveryFromUserInput();
 
+                var computer = new Computer { Components = components, Delivery = delivery };
+                computers.Add(computer);
+
                 PrintContinueOrBuildAnother();
                 if (Helpers.GetUserInput(2, "Odaberite akciju: ") == 1)
-                    return;
+                    return computers.ToArray();
             } 
         }
 
