@@ -4,11 +4,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Data.Enums;
 
 namespace Domain.Entities
 {
     public class DeliveryActions
     {
+        static public decimal CalculateDelivery(Computer pc)
+        {
+            if (pc.Delivery == Delivery.StorePickUp)
+                return 0;
+
+            return CalculateHomeDelivery(pc.Components);
+        }
+
         static public decimal CalculateHomeDelivery(Component[] components)
         {
             var weight = CalculateComponentWeight(components);

@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Data.Entities
 {
-    public class Order
+    public class OrderStore
     {
-        public Computer[] Computers;
-        public Discount Discount;
-        public DateTime CreatedAt = DateTime.Now;
+        static public List<Order> Orders = new() { };
+        static public decimal SpentSinceMembershipDiscount = 0;
     }
 }

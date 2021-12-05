@@ -51,8 +51,8 @@ namespace Presentation
             switch (discountType)
             {
                 case DiscountType.MembershipDiscount:
-                    // TODO
-                    break;
+                    OrderActions.ResetMembershipDiscount();
+                    return new Discount { amountDiscount = 100 };
 
                 case DiscountType.QuantityDiscount:
                     var components = DiscountActions.GetFreeComponents(computers).ToArray();
@@ -64,8 +64,7 @@ namespace Presentation
                     return new Discount { freeComponents = components };
 
                 case DiscountType.CouponDiscount:
-                    // TODO
-                    break;
+                    return SelectCode();
             }
             return null;
         }
@@ -127,11 +126,29 @@ namespace Presentation
 
         static public bool ConfirmOrder()
         {
+            Console.Clear();
             Console.WriteLine("Akcije: ");
             Console.WriteLine("1 - Potvrdi narudzbu");
             Console.WriteLine("2 - Odustani od narudzbe");
 
             return Helpers.GetUserInput(2, "Odaberite akciju: ") == 1;
+        }
+        static public Discount SelectCode()
+        {
+            Console.Clear();
+            while (true)
+            {
+                Console.Write("Upisite kod: ");
+                var code = Console.ReadLine();
+
+                if (code == "0")
+                    return null;
+
+                if (Code.Check(code))
+                    return new Discount { percentDiscount = Code.GetDiscount(code) };
+
+                Console.WriteLine("Kod nije valjan. Upisite ispravan kod ili 0 za povratak na odabir popusta.");
+            }
         }
 
     }

@@ -18,10 +18,6 @@ namespace Data.Entities
 
         override public ComponentType GetComponentType() => ComponentType.Processor;
 
-        override public string ToRow()
-        {
-            var name = $"{Manufacturer} {NumOfCores} core processor";
-            return $"{name,-40} | {Price}";
-        }
+        override public string GetName() => $"{Manufacturer} {NumOfCores} core processor";
     }
 }

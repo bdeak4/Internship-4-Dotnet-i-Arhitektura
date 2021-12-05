@@ -14,7 +14,8 @@ namespace Domain.Entities
         {
             var discounts = new List<DiscountType> { };
 
-            // TODO: check orders
+            if (OrderStore.SpentSinceMembershipDiscount > 1000)
+                discounts.Add(DiscountType.MembershipDiscount);
 
             var len = GetFreeComponents(computers).Count;
             if (len > 0)

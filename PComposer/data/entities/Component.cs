@@ -20,7 +20,12 @@ namespace Data.Entities
             throw new NotImplementedException();
         }
 
-        virtual public string ToRow()
+        public string ToRow()
+        {
+            return $"{GetName(),-40} | {Price}";
+        }
+
+        virtual public string GetName()
         {
             throw new NotImplementedException();
         }
