@@ -1,5 +1,7 @@
 ﻿using Data.Entities;
 using Data.Enums;
+using System;
+using System.Collections.Generic;
 
 namespace Data
 {
@@ -22,6 +24,15 @@ namespace Data
                 new Case {Price = 999,  Manufacturer = Manufacturer.NZXT,    Material = CaseMaterial.Metal,   WeightInKg = 1.5M},
                 new Case {Price = 399,  Manufacturer = Manufacturer.Corsair, Material = CaseMaterial.Plastic, WeightInKg = 1},
                 new Case {Price = 1499, Manufacturer = Manufacturer.Corsair, Material = CaseMaterial.Carbon,  WeightInKg = 0.5M},
+        };
+
+        private static readonly Random Rand = new Random();
+        public static readonly Dictionary<string, int> Codes = new()
+        {
+            { "0123456789", Rand.Next(1, 100) },
+            { "a123456789", Rand.Next(1, 100) },
+            { "b123456789", Rand.Next(1, 100) },
+            { "c123456789", Rand.Next(1, 100) },
         };
     }
 }

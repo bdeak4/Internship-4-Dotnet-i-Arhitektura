@@ -64,8 +64,7 @@ namespace Presentation
                     return new Discount { freeComponents = components };
 
                 case DiscountType.CouponDiscount:
-                    // TODO
-                    break;
+                    return SelectCode();
             }
             return null;
         }
@@ -133,6 +132,23 @@ namespace Presentation
             Console.WriteLine("2 - Odustani od narudzbe");
 
             return Helpers.GetUserInput(2, "Odaberite akciju: ") == 1;
+        }
+        static public Discount SelectCode()
+        {
+            Console.Clear();
+            while (true)
+            {
+                Console.Write("Upisite kod: ");
+                var code = Console.ReadLine();
+
+                if (code == "0")
+                    return null;
+
+                if (Code.Check(code))
+                    return new Discount { percentDiscount = Code.GetDiscount(code) };
+
+                Console.WriteLine("Kod nije valjan. Upisite ispravan kod ili 0 za povratak na odabir popusta.");
+            }
         }
 
     }

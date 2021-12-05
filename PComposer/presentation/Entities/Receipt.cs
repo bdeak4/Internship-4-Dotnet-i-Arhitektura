@@ -62,6 +62,11 @@ namespace Presentation.Entities
                 foreach (var component in order.Discount.freeComponents)
                     PrintIndentedItem(component.GetName(), 0);
             }
+
+            if (order.Discount.percentDiscount != null)
+            {
+                Console.WriteLine($"{"Promotivni kod",-60} | -{order.Discount.percentDiscount}%");
+            }
         }
     }
 }
