@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Data.Entities;
 using Domain.Entities;
 
 namespace Presentation.Entities
@@ -19,10 +20,7 @@ namespace Presentation.Entities
 
             PrintPreviousOrders();
 
-            var orderInput = Helpers.GetUserInput(OrderActions.Count(), "Odaberite narudzbu: ");
-            var order = OrderActions.Get()[orderInput - 1];
-
-            Receipt.Print(order);
+            Receipt.Print(GetOrderFromInput());
         }
 
         public static void PrintPreviousOrders()
@@ -32,5 +30,12 @@ namespace Presentation.Entities
                 Console.WriteLine($"{order.i + 1} - Order created at {order.value.CreatedAt}");
             }
         }
+
+        public static Order GetOrderFromInput()
+        {
+            var orderInput = Helpers.GetUserInput(OrderActions.Count(), "Odaberite narudzbu: ");
+            return OrderActions.Get()[orderInput - 1];
+        }
+
     }
 }
