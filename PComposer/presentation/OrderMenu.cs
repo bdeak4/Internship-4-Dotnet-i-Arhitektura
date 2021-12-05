@@ -12,15 +12,14 @@ namespace Presentation
 {
     class OrderMenu
     {
-        static public void Order()
+        static public Order Order()
         {
             var computers = OrderChooseComponentsAndDelivery();
             var discount = OrderChooseDiscount(computers);
-
-            
+            return new Order { Computers = computers, Discount = discount };
         }
 
-        private static Dictionary<DiscountType, string> DiscountRows = new Dictionary<DiscountType, string>
+        private static Dictionary<DiscountType, string> DiscountRows = new()
         {
             {DiscountType.MembershipDiscount, "Kupon popust za vjerno članstvo" },
             {DiscountType.QuantityDiscount, "Popust na količinu" },
@@ -52,15 +51,11 @@ namespace Presentation
             switch (discountType)
             {
                 case DiscountType.MembershipDiscount:
+                    // TODO
                     break;
 
                 case DiscountType.QuantityDiscount:
-                    var components = computers
-                        .SelectMany(x => x.Components)
-                        .GroupBy(x => x)
-                        .Where(x => x.Count() > 1)
-                        .Select(x => x.Key)
-                        .ToArray();
+                    var components = DiscountActions.GetFreeComponents(computers).ToArray();
 
                     Console.WriteLine("Zbog popusta na kolicinu ove proizvode dobijate besplatno:");
 
@@ -69,6 +64,7 @@ namespace Presentation
                     return new Discount { freeComponents = components };
 
                 case DiscountType.CouponDiscount:
+                    // TODO
                     break;
             }
             return null;
@@ -79,6 +75,7 @@ namespace Presentation
             Console.Clear();
             Console.WriteLine("Odaberite popust:");
             Console.WriteLine("1 - ne zelim popust");
+
             foreach (var discount in discounts.Select((value, i) => new { i, value }))
             {
                 Console.WriteLine($"{discount.i + 2} - {DiscountRows[discount.value]}");
@@ -127,5 +124,15 @@ namespace Presentation
             Console.WriteLine("1 - Nastavak kupnje");
             Console.WriteLine("2 - Sastavi jos jedan PC");
         }
+
+        static public bool ConfirmOrder()
+        {
+            Console.WriteLine("Akcije: ");
+            Console.WriteLine("1 - Potvrdi narudzbu");
+            Console.WriteLine("2 - Odustani od narudzbe");
+
+            return Helpers.GetUserInput(2, "Odaberite akciju: ") == 1;
+        }
+
     }
 }

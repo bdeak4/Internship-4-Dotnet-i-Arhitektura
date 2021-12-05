@@ -42,7 +42,13 @@ namespace Presentation
                         break;
 
                     case Menu.OrderPC:
-                        OrderMenu.Order();
+                        var order = OrderMenu.Order();
+
+                        if (!OrderMenu.ConfirmOrder()) break;
+
+                        //OrderActions.Add(order);
+                        //Receipt.Print(order);
+
                         break;
 
                     case Menu.Exit:
