@@ -11,6 +11,7 @@ namespace Domain.Entities
     {
         public static void Add(Order order)
         {
+            OrderStore.SpentSinceMembershipDiscount += CalculateTotal(order);
             OrderStore.Orders.Add(order);
         }
 
@@ -22,6 +23,27 @@ namespace Domain.Entities
         public static Order[] Get()
         {
             return OrderStore.Orders.ToArray();
+        }
+
+        public static void ResetMembershipDiscount()
+        {
+            OrderStore.SpentSinceMembershipDiscount = 0;
+        }
+
+        public static decimal CalculateTotal(Order order)
+        {
+            var total = 0M;
+
+            foreach (var pc in order.Computers)
+                total += ComputerActions.CalculatePrice(pc);
+
+            if (order.Discount != null && order.Discount.percentDiscount != null)
+                total -= (total * ((int)(order.Discount.percentDiscount) / 100M));
+
+            if (order.Discount != null && order.Discount.amountDiscount != null)
+                total -= (int)(order.Discount.amountDiscount);
+
+            return total;
         }
     }
 }

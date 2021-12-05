@@ -51,8 +51,8 @@ namespace Presentation
             switch (discountType)
             {
                 case DiscountType.MembershipDiscount:
-                    // TODO
-                    break;
+                    OrderActions.ResetMembershipDiscount();
+                    return new Discount { amountDiscount = 100 };
 
                 case DiscountType.QuantityDiscount:
                     var components = DiscountActions.GetFreeComponents(computers).ToArray();

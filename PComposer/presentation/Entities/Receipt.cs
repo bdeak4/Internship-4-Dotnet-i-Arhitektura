@@ -22,7 +22,7 @@ namespace Presentation.Entities
 
             PrintDiscount(order);
 
-
+            PrintTotal(order);
         }
 
         public static void PrintHeader()
@@ -55,6 +55,9 @@ namespace Presentation.Entities
 
         public static void PrintDiscount(Order order)
         {
+            if (order.Discount == null)
+                return;
+
             if (order.Discount.freeComponents != null)
             {
                 Console.WriteLine($"{"Besplatne komponente (2 + 1 gratis)",-60} |");
@@ -63,10 +66,22 @@ namespace Presentation.Entities
                     PrintIndentedItem(component.GetName(), 0);
             }
 
+            if (order.Discount.amountDiscount != null)
+            {
+                Console.WriteLine($"{"Popust za vjerno clanstvo",-60} | -{order.Discount.amountDiscount}kn");
+            }
+
             if (order.Discount.percentDiscount != null)
             {
                 Console.WriteLine($"{"Promotivni kod",-60} | -{order.Discount.percentDiscount}%");
             }
+        }
+
+        public static void PrintTotal(Order order)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"{"ukupno",-60} | {OrderActions.CalculateTotal(order)}kn");
+            Console.ResetColor();
         }
     }
 }
