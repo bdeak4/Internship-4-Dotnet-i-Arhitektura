@@ -47,9 +47,13 @@ namespace Presentation
 
                         if (!OrderMenu.ConfirmOrder()) break;
 
-                        //OrderActions.Add(order);
+                        OrderActions.Add(order);
                         Receipt.Print(order);
 
+                        break;
+
+                    case Menu.PreviousOrders:
+                        PreviousOrders.View();
                         break;
 
                     case Menu.Exit:
