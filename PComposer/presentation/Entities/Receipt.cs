@@ -40,9 +40,12 @@ namespace Presentation.Entities
 
             foreach (var component in pc.Components)
                 PrintIndentedItem(component.GetName(), component.GetPrice());
+
+            PrintIndentedItem("Usluga sastavljanja", pc.Components.Length * 25);
+            PrintIndentedItem("Dostava", DeliveryActions.CalculateDelivery(pc));
         }
 
-        public static void PrintIndentedItem(string name, int price)
+        public static void PrintIndentedItem(string name, decimal price)
         {
             Console.WriteLine($"    {name,-56} | {price}kn");
         }

@@ -127,6 +127,7 @@ namespace Presentation
 
         static public bool ConfirmOrder()
         {
+            Console.Clear();
             Console.WriteLine("Akcije: ");
             Console.WriteLine("1 - Potvrdi narudzbu");
             Console.WriteLine("2 - Odustani od narudzbe");

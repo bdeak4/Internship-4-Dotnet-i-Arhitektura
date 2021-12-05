@@ -9,9 +9,13 @@ namespace Domain.Entities
 {
     public class ComputerActions
     {
-        public static int CalculatePrice(Computer computer)
+        public static decimal CalculatePrice(Computer computer)
         {
-            return computer.Components.Aggregate(0, (acc, x) => acc + x.GetPrice());
+            
+            var components = computer.Components.Aggregate(0, (acc, x) => acc + x.GetPrice());
+            var assembling = computer.Components.Length * 25;
+            var delivery = DeliveryActions.CalculateDelivery(computer);
+            return components + assembling + delivery;
         }
     }
 }
