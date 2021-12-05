@@ -23,6 +23,8 @@ namespace Presentation.Entities
             PrintDiscount(order);
 
             PrintTotal(order);
+
+            PrintUser();
         }
 
         public static void PrintHeader()
@@ -82,6 +84,13 @@ namespace Presentation.Entities
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"{"ukupno",-60} | {OrderActions.CalculateTotal(order)}kn");
             Console.ResetColor();
+        }
+
+        public static void PrintUser()
+        {
+            Console.WriteLine("Racun za korisnika:");
+            Console.WriteLine($"    {User.Name} {User.Surname}");
+            Console.WriteLine($"    {User.Address} (udaljenost: {User.Distance}km)");
         }
     }
 }
