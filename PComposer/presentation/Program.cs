@@ -1,6 +1,7 @@
 ﻿using System;
 using Domain.Entities;
 using Presentation.Enums;
+using Presentation.Entities;
 
 namespace Presentation
 {
@@ -47,7 +48,7 @@ namespace Presentation
                         if (!OrderMenu.ConfirmOrder()) break;
 
                         //OrderActions.Add(order);
-                        //Receipt.Print(order);
+                        Receipt.Print(order);
 
                         break;
 

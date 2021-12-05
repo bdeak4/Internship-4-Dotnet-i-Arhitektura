@@ -13,11 +13,7 @@ namespace Data.Entities
 
         override public ComponentType GetComponentType() => ComponentType.Memory;
 
-        override public string ToRow()
-        {
-            var name = $"{SizeInGB}GB {Manufacturer} ram";
-            return $"{name,-40} | {Price}";
-        }
+        override public string GetName() => $"{SizeInGB}GB {Manufacturer} ram";
 
     }
 }

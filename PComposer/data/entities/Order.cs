@@ -10,5 +10,6 @@ namespace Data.Entities
     {
         public Computer[] Computers;
         public Discount Discount;
+        public DateTime CreatedAt = DateTime.Now;
     }
 }

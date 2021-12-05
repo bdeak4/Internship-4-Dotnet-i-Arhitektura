@@ -12,6 +12,7 @@ namespace Data.Entities
         ComponentType GetComponentType();
         Manufacturer GetManufacturer();
         int GetPrice();
+        string GetName();
         string ToRow();
     }
 }

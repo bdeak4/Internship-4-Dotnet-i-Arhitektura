@@ -15,11 +15,7 @@ namespace Data.Entities
 
         override public ComponentType GetComponentType() => ComponentType.HardDrive;
 
-        override public string ToRow()
-        {
-            var name = $"{SizeInTB}TB {Manufacturer} {Type} ({WeightInKg}kg)";
-            return $"{name,-40} | {Price}";
-        }
+        override public string GetName() => $"{SizeInTB}TB {Manufacturer} {Type} ({WeightInKg}kg)";
 
         public decimal GetWeightInKg() => WeightInKg;
 

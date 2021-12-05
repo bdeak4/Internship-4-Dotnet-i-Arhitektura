@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Data.Entities;
+using Domain.Entities;
+
+namespace Presentation.Entities
+{
+    public class Receipt
+    {
+        public static void Print (Order order)
+        {
+            Console.Clear();
+
+            PrintHeader();
+
+            foreach(var pc in order.Computers.Select((value, i) => new { i, value }))
+                PrintPC(pc.value, pc.i + 1);
+
+
+        }
+
+        public static void PrintHeader()
+        {
+            Console.WriteLine("Racun za narudzbu");
+            Console.WriteLine("".PadRight(80, '-'));
+        }
+
+        public static void PrintPC(Computer pc, int index)
+        {
+            var name = $"Konfiguracija {index}";
+            var total = ComputerActions.CalculatePrice(pc);
+
+            Console.Write($"{name,-60} | ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"{total}kn");
+            Console.ResetColor();
+
+            foreach (var component in pc.Components)
+                PrintIndentedItem(component.GetName(), component.GetPrice());
+        }
+
+        public static void PrintIndentedItem(string name, int price)
+        {
+            Console.WriteLine($"    {name,-56} | {price}kn");
+        }
+    }
+}
