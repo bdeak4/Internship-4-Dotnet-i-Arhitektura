@@ -1,12 +1,9 @@
-﻿using System;
+﻿using Data.Entities;
+using Data.Enums;
+using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Presentation.Enums;
-using Data.Entities;
-using Domain.Entities;
-using Data.Enums;
 
 namespace Presentation
 {
@@ -21,9 +18,9 @@ namespace Presentation
 
         private static Dictionary<DiscountType, string> DiscountRows = new()
         {
-            {DiscountType.MembershipDiscount, "Kupon popust za vjerno članstvo" },
-            {DiscountType.QuantityDiscount, "Popust na količinu" },
-            {DiscountType.CouponDiscount, "Popust unosom koda" }
+            { DiscountType.MembershipDiscount, "Kupon popust za vjerno članstvo" },
+            { DiscountType.QuantityDiscount, "Popust na količinu" },
+            { DiscountType.CouponDiscount, "Popust unosom koda" }
         };
 
         static public Discount OrderChooseDiscount(Computer[] computers)
@@ -97,7 +94,7 @@ namespace Presentation
                 PrintContinueOrBuildAnother();
                 if (Helpers.GetUserInput(2, "Odaberite akciju: ") == 1)
                     return computers.ToArray();
-            } 
+            }
         }
 
         static public void PrintDeliveryOptions(Component[] components)

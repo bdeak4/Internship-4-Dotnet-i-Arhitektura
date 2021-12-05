@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Data.Entities;
-using Data.Enums;
+﻿using Data.Entities;
 using Domain.Entities;
+using System;
+using System.Linq;
 
 namespace Presentation.Entities
 {
     public class Receipt
     {
-        public static void Print (Order order)
+        public static void Print(Order order)
         {
             Console.Clear();
 
             PrintHeader();
 
-            foreach(var pc in order.Computers.Select((value, i) => new { i, value }))
+            foreach (var pc in order.Computers.Select((value, i) => new { i, value }))
                 PrintPC(pc.value, pc.i + 1);
 
             PrintDiscount(order);

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Data;
+﻿using Data;
 
 
 namespace Domain.Entities
@@ -20,7 +15,7 @@ namespace Domain.Entities
             if (!Check(code))
                 return 0;
 
-            
+
             var discount = Seed.Codes[code];
 
             Seed.Codes.Remove(code);

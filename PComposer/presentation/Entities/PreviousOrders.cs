@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Data.Entities;
+﻿using Data.Entities;
 using Domain.Entities;
+using System;
+using System.Linq;
 
 namespace Presentation.Entities
 {
@@ -25,7 +22,7 @@ namespace Presentation.Entities
 
         public static void PrintPreviousOrders()
         {
-            foreach(var order in OrderActions.Get().Select((value, i) => new { i, value }))
+            foreach (var order in OrderActions.Get().Select((value, i) => new { i, value }))
             {
                 Console.WriteLine($"{order.i + 1} - Order created at {order.value.CreatedAt}");
             }

@@ -1,7 +1,7 @@
-﻿using System;
-using Domain.Entities;
-using Presentation.Enums;
+﻿using Domain.Entities;
 using Presentation.Entities;
+using Presentation.Enums;
+using System;
 
 namespace Presentation
 {
@@ -36,7 +36,7 @@ namespace Presentation
             while (true)
             {
                 Console.Clear();
-                
+
                 switch (CurrentMenu)
                 {
                     case Menu.Main:

@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Data.Entities;
+using Data.Enums;
+using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
-using Data.Entities;
-using Data.Enums;
 
 namespace Presentation
 {
@@ -48,7 +46,7 @@ namespace Presentation
         {
             Console.WriteLine($" id | {"naziv",-40} | cijena");
             Console.WriteLine(" -- | ---------------------------------------- | ------");
-            
+
             foreach (var component in components.Select((value, i) => new { i, value }))
             {
                 Console.WriteLine($"{(component.i + 1),3} | {component.value.ToRow()}");
