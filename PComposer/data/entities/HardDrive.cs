@@ -2,7 +2,7 @@
 
 namespace Data.Entities
 {
-    class HardDrive : Component, IComponent
+    class HardDrive : Component, IComponent, IHasWeight
     {
         public int SizeInTB;
         public decimal WeightInKg;
@@ -19,5 +19,8 @@ namespace Data.Entities
             var name = $"{SizeInTB}TB {Manufacturer} hdd ({WeightInKg}kg)";
             return $"{name,-40} | {Price}";
         }
+
+        public decimal GetWeightInKg() => WeightInKg;
+
     }
 }

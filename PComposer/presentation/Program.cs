@@ -42,9 +42,7 @@ namespace Presentation
                         break;
 
                     case Menu.OrderPC:
-                        var components = ChooseComponents.Choose();
-                        Console.WriteLine("choosen components");
-                        ChooseComponents.PrintComponentTable(components);
+                        OrderMenu.Order();
                         break;
 
                     case Menu.Exit:
