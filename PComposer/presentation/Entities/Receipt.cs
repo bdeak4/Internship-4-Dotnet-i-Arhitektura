@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Data.Entities;
+using Data.Enums;
 using Domain.Entities;
 
 namespace Presentation.Entities
@@ -18,6 +19,8 @@ namespace Presentation.Entities
 
             foreach(var pc in order.Computers.Select((value, i) => new { i, value }))
                 PrintPC(pc.value, pc.i + 1);
+
+            PrintDiscount(order);
 
 
         }
@@ -48,6 +51,17 @@ namespace Presentation.Entities
         public static void PrintIndentedItem(string name, decimal price)
         {
             Console.WriteLine($"    {name,-56} | {price}kn");
+        }
+
+        public static void PrintDiscount(Order order)
+        {
+            if (order.Discount.freeComponents != null)
+            {
+                Console.WriteLine($"{"Besplatne komponente (2 + 1 gratis)",-60} |");
+
+                foreach (var component in order.Discount.freeComponents)
+                    PrintIndentedItem(component.GetName(), 0);
+            }
         }
     }
 }
