@@ -15,6 +15,74 @@ namespace Presentation
         static public void Order()
         {
             var computers = OrderChooseComponentsAndDelivery();
+            var discount = OrderChooseDiscount(computers);
+
+            
+        }
+
+        private static Dictionary<DiscountType, string> DiscountRows = new Dictionary<DiscountType, string>
+        {
+            {DiscountType.MembershipDiscount, "Kupon popust za vjerno članstvo" },
+            {DiscountType.QuantityDiscount, "Popust na količinu" },
+            {DiscountType.CouponDiscount, "Popust unosom koda" }
+        };
+
+        static public Discount OrderChooseDiscount(Computer[] computers)
+        {
+            var discounts = DiscountActions.GetAvailableDiscountTypes(computers);
+
+            while (true)
+            {
+                PrintAvailableDiscountTypes(discounts);
+
+                var discountInput = Helpers.GetUserInput(discounts.Length + 1, "Odaberite popust: ");
+
+                if (discountInput == 1)
+                    return null;
+
+                var discount = HandleDiscount(discounts[discountInput - 2], computers);
+
+                if (discount != null)
+                    return discount;
+            }
+        }
+
+        static public Discount HandleDiscount(DiscountType discountType, Computer[] computers)
+        {
+            switch (discountType)
+            {
+                case DiscountType.MembershipDiscount:
+                    break;
+
+                case DiscountType.QuantityDiscount:
+                    var components = computers
+                        .SelectMany(x => x.Components)
+                        .GroupBy(x => x)
+                        .Where(x => x.Count() > 1)
+                        .Select(x => x.Key)
+                        .ToArray();
+
+                    Console.WriteLine("Zbog popusta na kolicinu ove proizvode dobijate besplatno:");
+
+                    ChooseComponents.PrintComponentTable(components);
+
+                    return new Discount { freeComponents = components };
+
+                case DiscountType.CouponDiscount:
+                    break;
+            }
+            return null;
+        }
+
+        static public void PrintAvailableDiscountTypes(DiscountType[] discounts)
+        {
+            Console.Clear();
+            Console.WriteLine("Odaberite popust:");
+            Console.WriteLine("1 - ne zelim popust");
+            foreach (var discount in discounts.Select((value, i) => new { i, value }))
+            {
+                Console.WriteLine($"{discount.i + 2} - {DiscountRows[discount.value]}");
+            }
         }
 
         static public Computer[] OrderChooseComponentsAndDelivery()
