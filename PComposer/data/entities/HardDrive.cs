@@ -2,10 +2,11 @@
 
 namespace Data.Entities
 {
-    class HardDrive : Component, IComponent
+    class HardDrive : Component, IComponent, IHasWeight
     {
         public int SizeInTB;
         public decimal WeightInKg;
+        public HardDriveType Type;
 
         public HardDrive()
         {
@@ -16,8 +17,11 @@ namespace Data.Entities
 
         override public string ToRow()
         {
-            var name = $"{SizeInTB}TB {Manufacturer} hdd ({WeightInKg}kg)";
+            var name = $"{SizeInTB}TB {Manufacturer} {Type} ({WeightInKg}kg)";
             return $"{name,-40} | {Price}";
         }
+
+        public decimal GetWeightInKg() => WeightInKg;
+
     }
 }

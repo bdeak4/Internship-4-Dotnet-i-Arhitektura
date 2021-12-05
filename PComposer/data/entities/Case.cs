@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data.Entities
 {
-    class Case : Component, IComponent
+    class Case : Component, IComponent, IHasWeight
     {
         public CaseMaterial Material;
         public decimal WeightInKg;
@@ -23,5 +23,7 @@ namespace Data.Entities
             var name = $"{Manufacturer} {Material} case ({WeightInKg}kg)";
             return $"{name,-40} | {Price}";
         }
+
+        public decimal GetWeightInKg() => WeightInKg;
     }
 }

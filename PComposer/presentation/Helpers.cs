@@ -48,6 +48,7 @@ namespace Presentation
                 Console.WriteLine("0 - Povratak u glavni izbornik");
             }
         }
+
         private static Menu GetUserInput()
         {
             while (true)
@@ -76,5 +77,23 @@ namespace Presentation
                 Console.WriteLine("Odabir mora biti jedan od brojeva u listi.");
             }
         }
+
+        public static int GetUserInput(int max, string prompt)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+
+                bool success = int.TryParse(Console.ReadLine(), out int choice);
+
+                if (success && choice > 0 && choice <= max)
+                {
+                    return choice;
+                }
+
+                Console.WriteLine("Odabir mora biti jedan od brojeva u listi.");
+            }
+        }
+
     }
 }

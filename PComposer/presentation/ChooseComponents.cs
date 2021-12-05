@@ -36,7 +36,7 @@ namespace Presentation
 
             PrintComponentTable(components);
 
-            var id = GetUserInput(components.Length);
+            var id = Helpers.GetUserInput(components.Length, "Odaberite proizvod (id): ");
 
             if (id == 0)
                 return null;
@@ -49,29 +49,11 @@ namespace Presentation
             Console.WriteLine($" id | {"naziv",-40} | cijena");
             Console.WriteLine(" -- | ---------------------------------------- | ------");
             
-            Console.WriteLine("  0 | preskoci ovu komponentu                  |");
-
             foreach (var component in components.Select((value, i) => new { i, value }))
             {
                 Console.WriteLine($"{(component.i + 1),3} | {component.value.ToRow()}");
             }
         }
 
-        public static int GetUserInput(int max)
-        {
-            while (true)
-            {
-                Console.Write("Odaberite proizvod (id): ");
-
-                bool success = int.TryParse(Console.ReadLine(), out int choice);
-
-                if (success && choice >= 0 && choice <= max)
-                {
-                    return choice;
-                }
-
-                Console.WriteLine("Odabir mora biti jedan od brojeva u listi.");
-            }
-        }
     }
 }
